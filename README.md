@@ -6,6 +6,7 @@
 * React
 * TypeScript
 * Redux 
+* JSONP
 * React testing library
 * Jest
 * ESlint

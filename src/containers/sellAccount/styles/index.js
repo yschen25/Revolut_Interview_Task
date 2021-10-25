@@ -25,10 +25,18 @@ const Balance = styled.p`
 
 const Money = styled.p`
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 10px;
   font-size: 1.2rem;
   color: grey;
 `;
 
-export { Currency, Input, Balance, Money };
+const Notice = styled.span`
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  font-size: 0.9rem;
+  color: #db3946;
+`;
+
+export { Currency, Input, Balance, Money, Notice };

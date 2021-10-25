@@ -4,24 +4,15 @@
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": [
-            "> 1%",
-            "ie 11"
-          ]
+          "browsers": ["> 1%", "ie 11"]
         }
       }
     ],
-    [
-      "@babel/preset-react"
-    ]
+    ["@babel/preset-react"]
   ],
   "plugins": [
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
-    ],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["babel-plugin-styled-components", { "displayName": true }],
     "@babel/plugin-transform-classes",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime",
@@ -30,7 +21,7 @@
   "env": {
     "production": {
       "plugins": [
-        ["react-remove-properties", {"properties": ["data-testid"]}]
+        ["react-remove-properties", { "properties": ["data-testid"] }]
       ]
     }
   }

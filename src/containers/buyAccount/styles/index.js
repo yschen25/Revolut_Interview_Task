@@ -31,4 +31,12 @@ const Money = styled.p`
   color: grey;
 `;
 
-export { Currency, Input, Balance, Money };
+const Notice = styled.span`
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  font-size: 0.9rem;
+  color: #db3946;
+`;
+
+export { Currency, Input, Balance, Money, Notice };

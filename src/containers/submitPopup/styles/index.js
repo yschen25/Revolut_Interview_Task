@@ -1,18 +1,29 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  display:flex;
+  // display: ${(props) => (props.display ? "flex" : "none")};
+  display:none;
   flex-wrap: wrap;
   position: absolute;
-  bottom :15px
+  bottom: 15px;
   left: 50%;
   transform: translate(-50%, 0);
   width: 90%;
   height: 40%;
-  display: flex;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 20px;
   z-index: 1;
+`;
+
+const Line = styled.p`
+  width: 55px;
+  height: 3px;
+  border-radius: 3px;
+  background: #dbd7d7;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 12px;
 `;
 
 const Desc = styled.p`
@@ -49,4 +60,4 @@ const Button = styled.div`
   transform: translate(-50%, 0);
 `;
 
-export { Container, Desc, ExchangeText, Button };
+export { Container, Line, Desc, ExchangeText, Button };

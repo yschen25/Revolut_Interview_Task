@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Currency, Input, Balance, Money } from "../styles";
+import { Currency, Input, Balance, Money, Notice } from "../styles";
 import { IoIosArrowDown } from "react-icons/io";
 import Api from "../../../api";
 
-const CurrentAccount = () => {
-
-  const [currency, updateCurrency] = useState("GBP");
+const SellAccount = (props) => {
 
   const [money, updateMoney] = useState(parseFloat(33396.42).toLocaleString());
 
@@ -15,13 +13,14 @@ const CurrentAccount = () => {
     <>
       <Input>
         <Currency>
-          {currency} <IoIosArrowDown />
+          {props.currency} <IoIosArrowDown />
         </Currency>
         <Balance>Balance: {money}</Balance>
         <Money>{transferMoney}</Money>
+        <Notice>exceeds balance</Notice>
       </Input>
     </>
   );
 };
 
-export default CurrentAccount;
+export default SellAccount;

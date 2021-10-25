@@ -1,62 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { Container, Wrapper, Title, Rate, Button } from "../styles";
-import CurrentAccount from "../../currentAccount/containers";
+import SellAccount from "../../sellAccount/containers";
 import ChangeAccountBtn from "../../changeAccountBtn/containers";
-import ExangeAccount from "../../exangeAccount/containers";
+import BuyAccount from "../../buyAccount/containers";
 import SubmitPopup from "../../submitPopup/containers";
 import { MdShowChart } from "react-icons/md";
 import Api from "../../../api";
 
 const Index = () => {
-
-  const [title, updateCurrency] = useState({
+  const [currency, updateCurrency] = useState({
     buyOrSell: ["Sell"],
-    currency: ["GBP"],
-  });
-
-  const [rate, updateRate] = useState({
-    sellCurrencySymbol: ["£"],
-    buyCurrencySymbol: ["$"],
-    buyCurrencyRate: [1.34234],
-  });
-
-  const [submitBtnText, updateSubmitButton] = useState({
-    buyOrSell: ["Sell"],
-    sell: ["GBP"],
-    buy: ["EUR"],
+    sell: ["£", "GBP"],
+    buy: ["$", "USD"],
+    buyCurrencyRate: [],
   });
 
   // Get rate by current currency
-  useEffect(() => {
-    async function fetchData() {
-      const response = await Api.getRateByCurrency(title.Currency);
-      console.log(response)
-    }
+  useEffect(() => {    
+    const interval = setInterval(() => {
+      async function fetchData() {
+        const response = await Api.getRateByCurrency();
+        const GBP_rate = (1 / response.rates.GBP).toFixed(4);
 
-    fetchData();
+        updateCurrency({
+          buyOrSell: ["Sell"],
+          sell: ["£", "GBP"],
+          buy: ["$", "USD"],
+          buyCurrencyRate: [GBP_rate],
+        });
+      }
 
-  }, []); 
+      fetchData();
+    }, 10000);
+  }, [currency.buyCurrencyRate]);
 
   return (
     <Container>
-      <SubmitPopup/>
+      <SubmitPopup />
       <Wrapper>
         <Title>
-          {title.buyOrSell} {title.currency}
+          {currency.buyOrSell} {currency.sell[1]}
         </Title>
         <Rate>
           <MdShowChart />
-          {rate.sellCurrencySymbol}1 = {rate.buyCurrencySymbol}
-          {rate.buyCurrencyRate}
+          {currency.sell[0]}1 = {currency.buy[0]}
+          {currency.buyCurrencyRate}
         </Rate>
       </Wrapper>
 
-      <CurrentAccount />
+      <SellAccount currency={currency.sell[1]} />
+
       <ChangeAccountBtn />
-      <ExangeAccount />
+
+      <BuyAccount currency={currency.buy[1]} />
 
       <Button>
-        {submitBtnText.buyOrSell} {submitBtnText.sell} for {submitBtnText.buy}
+        {currency.buyOrSell} {currency.sell[1]} for {currency.buy[1]}
       </Button>
     </Container>
   );
