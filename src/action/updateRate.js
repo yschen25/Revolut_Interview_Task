@@ -1,6 +1,6 @@
 import { UPDATE_RATE } from "./actionType";
 
-export const updateRate = (rate) => ({
+export const updateRate = (currency) => ({
   type: UPDATE_RATE,
-  payload: rate,
+  payload: currency,
 });

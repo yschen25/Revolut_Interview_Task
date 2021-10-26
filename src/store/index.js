@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 import createSagaMiddleware from "redux-saga";
-import { UPDATE_AMOUNT, UPDATE_RATE } from "../action/actionType";
 import createRootReducer from "./reducers";
 
 export const history = createBrowserHistory();
@@ -11,15 +10,22 @@ export const sagaMiddleware = createSagaMiddleware();
 function currencyReducer(
   state = {
     amount: 0,
-    rate: 0,
+    isSell: true,
+    rate: 0
   },
   action
 ) {
   switch (action.type) {
     case "UPDATE_AMOUNT":
-      return { ...state, amount: action.payload };
+      if (action.payload.fromCurrent) {
+        return { ...state, amount: action.payload.amount };
+      } else {
+        return { ...state, amount: action.payload.amount / state.rate };
+      }
+    case "UPDATE_SELL_OR_BUY":
+      return { ...state, isSell: !state.isSell };
     case "UPDATE_RATE":
-      return { ...state, rate: action.payload };
+       return { ...state, rate: action.payload };
     default:
       return state;
   }

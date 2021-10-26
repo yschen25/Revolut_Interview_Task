@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import GlobalStyle from './styles/global-style';
-import App from './containers/app';
+import App from './components/app';
 import { store } from './store';
 
 ReactDOM.render(

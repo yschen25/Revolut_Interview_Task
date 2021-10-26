@@ -7,6 +7,7 @@
 * TypeScript
 * Redux 
 * JSONP
+* Styled component
 * React testing library
 * Jest
 * ESlint
@@ -59,6 +60,3 @@ Follow the ESLint principle to fix the website.
 ```
 npm run lint-fix
 ```
-
-
-#### App functionality extended 

@@ -1,2 +1,4 @@
 export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
 export const UPDATE_RATE = "UPDATE_RATE";
+export const UPDATE_FOCUS_INPUT = "UPDATE_FOCUS_INPUT";
+export const UPDATE_SELL_OR_BUY = "UPDATE_SELL_OR_BUY";

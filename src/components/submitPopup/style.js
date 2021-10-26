@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  // display: ${(props) => (props.display ? "flex" : "none")};
-  display:none;
+  display: ${(props) => (props.isDisplay ? "flex" : "none")};
   flex-wrap: wrap;
   position: absolute;
   bottom: 15px;
@@ -51,7 +50,7 @@ const Button = styled.div`
   margin: auto;
   text-align: center;
   background: #ccdcf3;
-  border-radious: 6px;
+  border-radius: 6px;
   color: #009ae3;
   border-radius: 12px;
   position: absolute;

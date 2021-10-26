@@ -1,6 +1,17 @@
 import { UPDATE_AMOUNT } from "./actionType";
 
-export const updateAmount = (amount) => ({
+export const updateAmountFromCurrent = (amount) => ({
   type: UPDATE_AMOUNT,
-  payload: amount,
+  payload: {
+    fromCurrent: true,
+    amount,
+  }
+});
+
+export const updateAmountFromTarget = (amount) => ({
+  type: UPDATE_AMOUNT,
+  payload: {
+    fromCurrent: false,
+    amount,
+  },
 });
