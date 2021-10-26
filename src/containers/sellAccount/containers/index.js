@@ -1,26 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { Currency, Input, Balance, Money, Notice } from "../styles";
+import { connect } from "react-redux";
 import { IoIosArrowDown } from "react-icons/io";
-import Api from "../../../api";
+import { updateAmount } from "../../../action/updateAmount";
+import {
+  SellWrapper,
+  Currency,
+  Input,
+  Balance,
+  Money,
+  Notice,
+} from "../../buyAccount/styles";
 
-const SellAccount = (props) => {
+const SellAccount = ({ currency, dispatchUpdateAmountState }) => {
+  const [balance, updateBalance] = useState(
+    parseFloat(33396.42).toLocaleString()
+  );
 
-  const [money, updateMoney] = useState(parseFloat(33396.42).toLocaleString());
+  const [amount, updateMoney] = useState();
 
-  const [transferMoney, updateTransferMoney] = useState(0);
+  // Update money
+  const onChange = (e) => {
+    let inputText = e.target.value;
+    let reg = /^\d+(\.\d{0,2})?$/;
+    if (inputText.match(reg)) {
+      const updatedAmount = parseFloat(inputText);
+      updateMoney(updatedAmount);
+      dispatchUpdateAmountState(updatedAmount);
+    }
+  };
+
+  // const amountStr = "-" + amount;
+  const amountStr = "" + amount;
 
   return (
     <>
-      <Input>
+      <SellWrapper>
+        <Input
+          type="number"
+          onChange={onChange}
+          placeholder="0"
+          value={amountStr}
+        />
         <Currency>
-          {props.currency} <IoIosArrowDown />
+          {currency} <IoIosArrowDown />
         </Currency>
-        <Balance>Balance: {money}</Balance>
-        <Money>{transferMoney}</Money>
+        <Balance>Balance: {balance}</Balance>
+        <Money />
         <Notice>exceeds balance</Notice>
-      </Input>
+      </SellWrapper>
     </>
   );
 };
 
-export default SellAccount;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUpdateAmountState: (amount) => {
+    dispatch(updateAmount(amount));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SellAccount);

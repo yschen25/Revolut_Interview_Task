@@ -1,1 +1,2 @@
-export const ADD_TOPPINGS = 'ADD_TOPPINGS';
+export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
+export const UPDATE_RATE = "UPDATE_RATE";

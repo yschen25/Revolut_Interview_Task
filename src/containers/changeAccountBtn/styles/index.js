@@ -10,7 +10,6 @@ const Button = styled.div`
   display: flex;
   background: #fff;
   color: #025d89;
-  border-radio: 100%;
   border-radius: 100%;
   align-items: center;
   justify-content: center;

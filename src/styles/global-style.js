@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
   }
-  html, body {
+  html, body, input {
     height: auto;
     font-family: 'Noto Sans TC', sans-serif;
     font-display: optional;

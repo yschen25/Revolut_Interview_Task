@@ -1,25 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { Currency, Input, Balance, Money, Notice } from "../styles";
+import { connect } from "react-redux";
+import { BuyWrapper, Currency, Input, Balance, Money, Notice } from "../styles";
 import { IoIosArrowDown } from "react-icons/io";
-import Api from "../../../api";
 
-const BuyAccount = (props) => {
+const BuyAccount = ({currency, exchangeRate}) => {
+  const [balance, updateBalance] = useState(parseFloat(0.13).toLocaleString());
+  const [amount, updateMoney] = useState();
 
-  const [money, updateMoney] = useState(parseFloat(0.13).toLocaleString());
-  const [transferMoney, updateTransferMoney] = useState(0);
+  // Update money
+  const onChange = (e) => {
+    let inputText = e.target.value;
+    let reg = /^\d+(\.\d{0,2})?$/;
+    if (inputText.match(reg)) {
+      const updatedAmount = parseFloat(inputText);
+      updateMoney(updatedAmount);
+      dispatchUpdateAmountState(updatedAmount);
+    }
+  };
 
   return (
     <>
-      <Input>
+      <BuyWrapper>
+        <Input onChange={onChange} value={exchangeRate} />
         <Currency>
-          {props.currency}<IoIosArrowDown />
+          {currency} <IoIosArrowDown />
         </Currency>
-        <Balance>Balance: {money}</Balance>
-        <Money>{transferMoney}</Money>
+        <Balance>Balance: {balance}</Balance>
+        <Money />
         <Notice>exceeds balance</Notice>
-      </Input>
+      </BuyWrapper>
     </>
   );
 };
 
-export default BuyAccount;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUpdateAmountState: (amount) => {
+    dispatch(updateAmount(amount));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(BuyAccount);
