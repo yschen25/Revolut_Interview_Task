@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const config = require('./webpack.base.config.js');
 
 module.exports = merge(config, {
@@ -9,7 +9,6 @@ module.exports = merge(config, {
     },
     devServer: {
         host: 'localhost',
-        inline: true,
         port: 3310,
         open: true
     },
