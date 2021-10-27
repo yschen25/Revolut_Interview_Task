@@ -9,7 +9,11 @@ const ChangeAccountBtn = ({ isSell, onClick }) => {
     symbol = <AiOutlineArrowUp />;
   }
 
-  return <Button onClick={onClick}>{symbol}</Button>;
+  return (
+    <Button data-testid="changeCurrency" onClick={onClick}>
+      {symbol}
+    </Button>
+  );
 };
 
 export default ChangeAccountBtn;

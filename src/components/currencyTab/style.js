@@ -21,6 +21,8 @@ const Input = styled.input`
   padding-left: 50px;
   caret-color: #1e7bc7;
   font-size: 1.3rem;
+  position: absolute;
+  top: 0;
 `;
 
 const List = styled.div`
@@ -61,6 +63,7 @@ const iconStyle = {
   top: "50%",
   left: "15px",
   transform: "translate(0, -50%)",
+  zIndex:"2"
 };
 
 export {

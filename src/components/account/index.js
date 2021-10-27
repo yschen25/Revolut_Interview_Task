@@ -12,7 +12,9 @@ import {
 } from "./style";
 
 const AmountInput = ({
-  isMe,
+  data_testid,
+  data_test_id_for_link,
+  isCurrent,
   currency,
   isSell,
   balance,
@@ -24,14 +26,15 @@ const AmountInput = ({
 
   const onChange = (e) => {
     let inputText = e.target.value;
-    if (inputText.length > 0 && (inputText[0] === "+" || inputText[0] === '-')) {
+    if (
+      inputText.length > 0 &&
+      (inputText[0] === "+" || inputText[0] === "-")
+    ) {
       inputText = inputText.substring(1);
     }
     let reg = /^(\+|-)?\d*(\.\d{0,2})?$/;
     if (inputText.match(reg)) {
       const updatedAmount = inputText.length === 0 ? 0 : parseFloat(inputText);
-      console.log(inputText);
-      console.log(updatedAmount);
       updateMoney(inputText);
       onAmountChange(updatedAmount);
     }
@@ -42,7 +45,7 @@ const AmountInput = ({
 
   useEffect(() => {
     if (!isFocus) {
-      updateMoney(amount);
+      updateMoney(+amount.toFixed(2));
     }
   }, [amount]);
 
@@ -50,6 +53,7 @@ const AmountInput = ({
 
   let isExceed = isSell && parseFloat(localAmount) > parseFloat(balance);
 
+  // Change input background color
   let color = "#ededed";
   if (isFocus) {
     color = "#dedede";
@@ -70,7 +74,7 @@ const AmountInput = ({
     <>
       <Wrapper style={{ background: color }}>
         <Input
-          // type="number"
+          data-testid={data_testid}
           type="text"
           pattern="\d*(\.\d{0,2})?"
           style={{ background: color }}
@@ -82,7 +86,10 @@ const AmountInput = ({
           value={localAmountStr}
         />
         <Currency>
-          <Link to={{ pathname: "/currency_tab", state: { isMe: isMe } }}>
+          <Link
+            data-testid={data_test_id_for_link}
+            to={{ pathname: "/currency_tab", state: { isCurrent: isCurrent } }}
+          >
             {currency} <IoIosArrowDown style={iconStyle} />
           </Link>
         </Currency>

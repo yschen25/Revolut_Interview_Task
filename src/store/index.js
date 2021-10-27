@@ -12,7 +12,7 @@ function currencyReducer(
     currentCurrency: "GBP",
     targetCurrency: "USD",
     // rate: 0
-    rate: 1.3,
+    rates: { USD: 1.3 },
     amount: 0,
     isSell: true,
     currencyList: {},
@@ -25,12 +25,12 @@ function currencyReducer(
     case "UPDATE_TARGET_CURRENCY":
       return { ...state, targetCurrency: action.payload };
     case "UPDATE_RATE":
-      return { ...state, rate: action.payload };
+      return { ...state, rates: action.payload };
     case "UPDATE_AMOUNT":
       if (action.payload.fromCurrent) {
         return { ...state, amount: action.payload.amount };
       } else {
-        return { ...state, amount: action.payload.amount / state.rate };
+        return { ...state, amount: action.payload.amount / state.rates[state.targetCurrency] };
       }
     case "UPDATE_SELL_OR_BUY":
       return { ...state, isSell: !state.isSell };

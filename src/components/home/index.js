@@ -7,18 +7,18 @@ import ChangeAccountBtn from "../changeAccountBtn";
 import SubmitPopup from "../submitPopup";
 import { MdShowChart } from "react-icons/md";
 import { updateSellOrBuy } from "../../action/updateSellOrBuy";
-import { updateRate } from "../../action/updateRate";
+import { updateRates } from "../../action/updateRate";
 import {
   updateAmountFromCurrent,
   updateAmountFromTarget,
 } from "../../action/updateAmount";
-import { currencies } from "currencies.json";
+import {findCurrencySymbol} from "../../utility";
 import Api from "../../api";
 
 const Index = ({
   currentCurrency,
   targetCurrency,
-  rate,
+  rates,
   amount,
   isSell,
   dispatchUpdateAmountFromCurrentState,
@@ -30,25 +30,25 @@ const Index = ({
   const targetBalance = 0.13;
   const [isDisplay, updateDisplay] = useState(false);
 
-  // Get rate by current
-  // useEffect(() => {
-  //   // const interval = setInterval(() => {
-  //   async function fetchData() {
-  //     const response = await Api.getRateByCurrency(currentCurrency);
-  //     const rate = response.rates.USD.toFixed(4);
+  // Get rate by curreny
+  useEffect(() => {
+    // const interval = setInterval(() => {
+    async function fetchData() {
+      const response = await Api.getRateByCurrency(currentCurrency);
+      const rates = response.rates;
+      dispatchUpdateRateState(rates);
+    }
 
-  //     console.log(rate);
-  //     dispatchUpdateRateState(rate);
-  //   }
+    fetchData();
+    // }, 10000000000);
+  }, []);
 
-  //   fetchData();
-  //   // }, 10000000000);
-  // }, []);
-
+  // Change account to sell or buy
   const toggleBuyOrSell = () => {
     dispatchUpdateSellOrBuyState();
   };
 
+  // Submit exchange request
   const onSubmit = (e) => {
     if (!amount) {
       return;
@@ -62,19 +62,15 @@ const Index = ({
     updateDisplay(false);
   };
 
+  const rate = rates[targetCurrency];
   const currentAmountStr = amount;
   const targetAmountStr = amount * rate;
 
-  const currentSymbol = currencies.filter(
-    ({ code }) => code === currentCurrency
-  )[0].symbol;
-
-  const targetSymbol = currencies.filter(
-    ({ code }) => code === targetCurrency
-  )[0].symbol;
+  const currentSymbol = findCurrencySymbol(currentCurrency);
+  const targetSymbol = findCurrencySymbol(targetCurrency);
 
   return (
-    <Container onClick={closePopup}>
+    <Container data-testid="index" onClick={closePopup}>
       <Wrapper>
         <Title>
           {isSell ? "Sell" : "Buy"} {currentCurrency}
@@ -88,7 +84,9 @@ const Index = ({
 
       <SellWrapper>
         <AmountInput
-          isMe={true}
+          data_testid="sell-input"
+          data_test_id_for_link="link-to-currency-tab-for-sell-input"
+          isCurrent={true}
           currency={currentCurrency}
           isSell={isSell}
           amount={currentAmountStr}
@@ -99,7 +97,9 @@ const Index = ({
 
       <BuyWrapper>
         <AmountInput
-          isMe={false}
+          data_testid="buy-input"
+          data_test_id_for_link="link-to-currency-tab-for-buy-input"
+          isCurrent={false}
           currency={targetCurrency}
           isSell={!isSell}
           amount={targetAmountStr}
@@ -110,19 +110,19 @@ const Index = ({
 
       <ChangeAccountBtn onClick={toggleBuyOrSell} isSell={isSell} />
 
-      <Button onClick={onSubmit}>
+      <Button data-testid="submit-request" onClick={onSubmit}>
         {isSell ? "Sell" : "Buy"} {currentCurrency} for {targetCurrency}
       </Button>
 
-      <Mask display={isDisplay} />
-      <SubmitPopup isSell={isSell} display={isDisplay} />
+      <Mask isDisplay={isDisplay} />
+      <SubmitPopup isSell={isSell} isDisplay={isDisplay} />
     </Container>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUpdateRateState: (rate) => {
-    dispatch(updateRate(rate));
+  dispatchUpdateRateState: (rates) => {
+    dispatch(updateRates(rates));
   },
   dispatchUpdateAmountFromCurrentState: (amount) => {
     dispatch(updateAmountFromCurrent(amount));
@@ -138,7 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   currentCurrency: state.currencyReducer.currentCurrency,
   targetCurrency: state.currencyReducer.targetCurrency,
-  rate: state.currencyReducer.rate,
+  rates: state.currencyReducer.rates,
   amount: state.currencyReducer.amount,
   isSell: state.currencyReducer.isSell,
 });

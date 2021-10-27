@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Mask = styled.div`
-  display: ${(props) => (props.display ? "block" : "none")};
+  display: ${(props) => (props.isDisplay ? "block" : "none")};
   height: 100vh;
   width: 100vw;
   position: absolute;

@@ -9,8 +9,8 @@
     "prod": "webpack --config webpack.prod.config.js",
     "analyze": "webpack --config webpack.prod.config.js --profile --json > stats.json",
     "report": "webpack-bundle-analyzer ./stats.json",
-    "lint": "eslint src/*.js",
-    "lint-fix": "eslint --fix src/*.js",
+    "lint": "eslint src/components/*/*.js",
+    "lint-fix": "eslint --fix src/components/*/*.js",
     "test": "jest --coverage",
     "test:single": "node ./node_modules/jest-single-file-coverage"
   },
@@ -37,11 +37,7 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__test__/__mocks__/fileTransformer.js"
     },
     "collectCoverageFrom": [
-      "src/styles/*.js",
-      "src/commons/*.js",
-      "src/containers/*/*.js",
-      "src/routes/home/*/*.js",
-      "!src/assets/*.*"
+      "src/components/*/*.js"
     ]
   },
   "dependencies": {

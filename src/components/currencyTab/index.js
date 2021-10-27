@@ -21,13 +21,16 @@ import Api from "../../api";
 import _ from "lodash";
 
 const CurrencyTab = ({
-  history: {location: {state: {isMe}}},
+  history: {
+    location: {
+      state: { isCurrent },
+    },
+  },
   currencyList,
   dispatchUpdateCurrentCurrencyState,
   dispatchUpdateTargetCurrencyState,
   dispatchUpdateCurrencyListState,
 }) => {
-
   const [list, updateList] = useState({
     originalList: {},
     searchList: {},
@@ -36,7 +39,9 @@ const CurrencyTab = ({
 
   useEffect(() => {
     async function fetchData() {
-      let newCurrencyList = currencyList
+      let newCurrencyList = currencyList;
+
+      // Check does it have cache
       if (_.isEmpty(newCurrencyList)) {
         newCurrencyList = await Api.getCurrencyList();
         dispatchUpdateCurrencyListState(newCurrencyList);
@@ -50,6 +55,7 @@ const CurrencyTab = ({
     fetchData();
   }, []);
 
+  // Dynamic filter currency list by typing input value
   const doSearch = (list) => {
     const { keyword, originalList } = list;
     if (!keyword) {
@@ -68,31 +74,34 @@ const CurrencyTab = ({
     updateList(doSearch({ ...list, keyword }));
   };
 
+  // Update current / target account's currency
   let history = useHistory();
-  const onChooseCurrency = (e) => {
-    const currency = e.currentTarget.textContent;
-
-    if (isMe) {
-      dispatchUpdateCurrentCurrencyState(currency);
+  const onChooseCurrency = currencyCode => () => {
+    if (isCurrent) {
+      dispatchUpdateCurrentCurrencyState(currencyCode);
     } else {
-      dispatchUpdateTargetCurrencyState(currency);
+      dispatchUpdateTargetCurrencyState(currencyCode);
     }
-    
-    history.push("/");
+
+    history.push('/');
   };
 
   return (
     <Container>
       <Wrapper>
-        <Link style={linkStyle} to="/">
+        <Link data-testid="back-to-index" style={linkStyle} to="/">
           <AiOutlineArrowLeft style={iconStyle} />
         </Link>
-        <Input onChange={onChange} />
+        <Input data-testid="find-currency" onChange={onChange} />
       </Wrapper>
-      <List>
+      <List data-testid="currency-list">
         {Object.entries(list.searchList).map((item, index) => (
-          <CurrencyWrapper key={index}>
-            <CurrencyTitle onClick={onChooseCurrency}>{item[0]}</CurrencyTitle>
+          <CurrencyWrapper
+            data-testid="currency-list-item"
+            key={index}
+            onClick={onChooseCurrency(item[0])}
+          >
+            <CurrencyTitle>{item[0]}</CurrencyTitle>
             <CurrencySubTitle>{item[1]}</CurrencySubTitle>
           </CurrencyWrapper>
         ))}

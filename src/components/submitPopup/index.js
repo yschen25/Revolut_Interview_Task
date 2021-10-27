@@ -1,26 +1,38 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Container, Line, Desc, ExchangeText, Button } from "./style";
+import { findCurrencySymbol } from "../../utility";
 
-const SubmitPopup = ({ isSell, display, amount, rate }) => {
-
+const SubmitPopup = ({
+  currentCurrency,
+  targetCurrency,
+  isSell,
+  isDisplay,
+  amount,
+  rate,
+}) => {
   let sellAmount = null;
   let buyAmount = null;
 
   if (isSell) {
-    sellAmount = amount;
+    sellAmount = amount.toFixed(2);
     buyAmount = (amount * rate).toFixed(2);
   } else {
-    buyAmount = amount;
+    buyAmount = amount.toFixed(2);
     sellAmount = (amount * rate).toFixed(2);
   }
 
+  const currentSymbol = findCurrencySymbol(currentCurrency);
+  const targetSymbol = findCurrencySymbol(targetCurrency);
+
   return (
-    <Container isDisplay={display}>
+    <Container isDisplay={isDisplay}>
       <Line />
       <Desc>You exchanged</Desc>
-      <ExchangeText>
-        {sellAmount} to {buyAmount}
+      <ExchangeText data-testid="exchange-text">
+        {currentSymbol}
+        {sellAmount} to {targetSymbol}
+        {buyAmount}
       </ExchangeText>
       <Button>Set up limit order</Button>
     </Container>
@@ -28,8 +40,10 @@ const SubmitPopup = ({ isSell, display, amount, rate }) => {
 };
 
 const mapStateToProps = (state) => ({
+  currentCurrency: state.currencyReducer.currentCurrency,
+  targetCurrency: state.currencyReducer.targetCurrency,
   amount: state.currencyReducer.amount,
-  rate: state.currencyReducer.rate,
+  rate: state.currencyReducer.rates[state.currencyReducer.targetCurrency],
 });
 
 export default connect(mapStateToProps)(SubmitPopup);
