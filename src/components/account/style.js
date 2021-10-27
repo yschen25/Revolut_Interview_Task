@@ -1,23 +1,12 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background: ${(props) => (props.isExceed ? "#f7d1d7" : "#fff")};
   display: flex;
   position: absolute;
-  padding-left: 10px;
+  padding-left: 15px;
   border-radius: 10px;
   width: 100%;
   height: 100%;
-`;
-
-const BuyWrapper = styled.div`
-  top: 235px;
-  display: flex;
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  width: 95%;
-  height: 70px;
 `;
 
 const SellWrapper = styled.div`
@@ -27,17 +16,26 @@ const SellWrapper = styled.div`
   left: 10px;
   right: 10px;
   width: 95%;
-  height: 70px;
+  height: 80px;
+`;
+
+const BuyWrapper = styled.div`
+  top: 245px;
+  display: flex;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  width: 95%;
+  height: 80px;
 `;
 
 const Input = styled.input`
-  background: ${(props) => (props.isExceed ? "#f7d1d7" : "#fff")};
   position: absolute;
   right: 0;
   height: 100%;
   width: 80%;
   top: 0;
-  padding: 0px 10px 30px 5px;
+  padding: 0px 15px 30px 5px;
   text-align: right;
   font-size: 1.1rem;
   border: none;
@@ -75,8 +73,15 @@ const Notice = styled.span`
   color: #db3946;
 `;
 
+const iconStyle = {
+  fontSize: "1.2rem",
+  position: "absolute",
+  top: "0",
+  right: "-24px",
+};
+
 export {
-  Wrapper, 
+  Wrapper,
   BuyWrapper,
   SellWrapper,
   Currency,
@@ -84,4 +89,5 @@ export {
   Balance,
   Money,
   Notice,
+  iconStyle
 };

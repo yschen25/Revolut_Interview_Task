@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import {
   Wrapper,
@@ -7,9 +8,11 @@ import {
   Balance,
   Money,
   Notice,
+  iconStyle,
 } from "./style";
 
 const AmountInput = ({
+  isMe,
   currency,
   isSell,
   balance,
@@ -21,10 +24,15 @@ const AmountInput = ({
 
   const onChange = (e) => {
     let inputText = e.target.value;
-    let reg = /^\d*(\.\d{0,3})?$/;
+    if (inputText.length > 0 && (inputText[0] === "+" || inputText[0] === '-')) {
+      inputText = inputText.substring(1);
+    }
+    let reg = /^(\+|-)?\d*(\.\d{0,2})?$/;
     if (inputText.match(reg)) {
-      const updatedAmount = parseFloat(inputText);
-      updateMoney(updatedAmount);
+      const updatedAmount = inputText.length === 0 ? 0 : parseFloat(inputText);
+      console.log(inputText);
+      console.log(updatedAmount);
+      updateMoney(inputText);
       onAmountChange(updatedAmount);
     }
   };
@@ -40,27 +48,49 @@ const AmountInput = ({
 
   const balanceStr = parseFloat(balance).toLocaleString();
 
-  let isExceed = isSell && localAmount > parseFloat(balance);
-  let amountStr = !localAmount ? null : localAmount.toFixed(2);
+  let isExceed = isSell && parseFloat(localAmount) > parseFloat(balance);
+
+  let color = "#ededed";
+  if (isFocus) {
+    color = "#dedede";
+  }
+  if (isExceed) {
+    color = "#f7d1d7";
+  }
+
+  const sign = isSell ? "-" : "+";
+  let localAmountStr = localAmount
+    ? sign + +parseFloat(localAmount).toFixed(2)
+    : "";
+  if (isFocus) {
+    localAmountStr = localAmount ? sign + localAmount : "";
+  }
 
   return (
     <>
-      <Wrapper isExceed={isExceed}>
+      <Wrapper style={{ background: color }}>
         <Input
-          type="number"
-          isExceed={isExceed}
+          // type="number"
+          type="text"
+          pattern="\d*(\.\d{0,2})?"
+          style={{ background: color }}
+          isFocus={isFocus}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder="0"
-          value={amountStr || ""}
+          value={localAmountStr}
         />
         <Currency>
-          {currency} <IoIosArrowDown />
+          <Link to={{ pathname: "/currency_tab", state: { isMe: isMe } }}>
+            {currency} <IoIosArrowDown style={iconStyle} />
+          </Link>
         </Currency>
         <Balance>Balance: {balanceStr}</Balance>
         <Money />
-        <Notice isExceed={isExceed}>exceeds balance</Notice>
+        <Notice style={{ background: color }} isExceed={isExceed}>
+          exceeds balance
+        </Notice>
       </Wrapper>
     </>
   );

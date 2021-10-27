@@ -9,13 +9,23 @@ export const sagaMiddleware = createSagaMiddleware();
 
 function currencyReducer(
   state = {
+    currentCurrency: "GBP",
+    targetCurrency: "USD",
+    // rate: 0
+    rate: 1.3,
     amount: 0,
     isSell: true,
-    rate: 0
+    currencyList: {},
   },
   action
 ) {
   switch (action.type) {
+    case "UPDATE_CURRENT_CURRENCY":
+      return { ...state, currentCurrency: action.payload };
+    case "UPDATE_TARGET_CURRENCY":
+      return { ...state, targetCurrency: action.payload };
+    case "UPDATE_RATE":
+      return { ...state, rate: action.payload };
     case "UPDATE_AMOUNT":
       if (action.payload.fromCurrent) {
         return { ...state, amount: action.payload.amount };
@@ -24,8 +34,8 @@ function currencyReducer(
       }
     case "UPDATE_SELL_OR_BUY":
       return { ...state, isSell: !state.isSell };
-    case "UPDATE_RATE":
-       return { ...state, rate: action.payload };
+    case "UPDATE_CURRENCY_LIST":
+      return { ...state, currencyList: action.payload };
     default:
       return state;
   }

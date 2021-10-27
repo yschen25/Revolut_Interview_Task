@@ -11,7 +11,7 @@ const Container = styled.div`
   height: 40%;
   background: #fff;
   border-radius: 20px;
-  z-index: 1;
+  z-index: 5;
 `;
 
 const Line = styled.p`

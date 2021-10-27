@@ -8,7 +8,16 @@ const Container = styled.div`
   width: 100vw;
   position: relative;
   overflow: hidden;
-  background: #f6f6f6;
+  background: #fff;
+`;
+
+const Mask = styled.div`
+  display: ${(props) => (props.display ? "block" : "none")};
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 4;
 `;
 
 const Wrapper = styled.div`
@@ -43,4 +52,4 @@ const Button = styled.div`
   bottom: 30px;
 `;
 
-export { Container, Wrapper, Title, Rate, Button };
+export { Container, Mask, Wrapper, Title, Rate, Button };

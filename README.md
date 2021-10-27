@@ -60,3 +60,14 @@ Follow the ESLint principle to fix the website.
 ```
 npm run lint-fix
 ```
+
+##### APP functionality expand
+
+When customer submit the currency exchange request, 
+we need consider "Should we calculate money by the rate shows on the screen or by the instant rate?"
+
+1. Calculate amount by the rate shows on the screen allows users knowing well about exactly how much money they sell/buy, but the rate might not the latest one.
+
+2. Calculate amount by instant rate allows users sell/buy the accurate amount, but it might confused the users.
+
+On my previous e-commerce company, we used the rate shows on screen for calculating to prevent controversy. So I think it depends on the company's policy.
