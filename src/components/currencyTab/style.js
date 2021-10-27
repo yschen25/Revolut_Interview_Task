@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -51,29 +51,29 @@ const CurrencySubTitle = styled.div`
 `;
 
 const linkStyle = {
-  display: "block",
-  width: "55px",
-  height: "45px",
+    display: 'block',
+    width: '55px',
+    height: '45px',
 };
 
 const iconStyle = {
-  fontSize: "1.6em",
-  position: "absolute",
-  color: "#000",
-  top: "50%",
-  left: "15px",
-  transform: "translate(0, -50%)",
-  zIndex:"2"
+    fontSize: '1.6em',
+    position: 'absolute',
+    color: '#000',
+    top: '50%',
+    left: '15px',
+    transform: 'translate(0, -50%)',
+    zIndex: '2'
 };
 
 export {
-  Container,
-  Wrapper,
-  Input,
-  List,
-  CurrencyWrapper,
-  CurrencyTitle,
-  CurrencySubTitle,
-  linkStyle,
-  iconStyle
+    Container,
+    Wrapper,
+    Input,
+    List,
+    CurrencyWrapper,
+    CurrencyTitle,
+    CurrencySubTitle,
+    linkStyle,
+    iconStyle
 };

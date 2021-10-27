@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const Money = styled.p`
 `;
 
 const Notice = styled.span`
-  display: ${(props) => (props.isExceed ? "block" : "none")};
+  display: ${(props) => (props.isExceed ? 'block' : 'none')};
   position: absolute;
   right: 10px;
   bottom: 10px;
@@ -74,20 +74,20 @@ const Notice = styled.span`
 `;
 
 const iconStyle = {
-  fontSize: "1.2rem",
-  position: "absolute",
-  top: "0",
-  right: "-24px",
+    fontSize: '1.2rem',
+    position: 'absolute',
+    top: '0',
+    right: '-24px',
 };
 
 export {
-  Wrapper,
-  BuyWrapper,
-  SellWrapper,
-  Currency,
-  Input,
-  Balance,
-  Money,
-  Notice,
-  iconStyle
+    Wrapper,
+    BuyWrapper,
+    SellWrapper,
+    Currency,
+    Input,
+    Balance,
+    Money,
+    Notice,
+    iconStyle
 };

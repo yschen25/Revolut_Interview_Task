@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.div`
-  display: ${(props) => (props.isDisplay ? "flex" : "none")};
+  display: ${(props) => (props.isDisplay ? 'flex' : 'none')};
   flex-wrap: wrap;
   position: absolute;
   bottom: 15px;
@@ -59,4 +59,6 @@ const Button = styled.div`
   transform: translate(-50%, 0);
 `;
 
-export { Container, Line, Desc, ExchangeText, Button };
+export {
+    Container, Line, Desc, ExchangeText, Button
+};

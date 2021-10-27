@@ -1,19 +1,18 @@
-import React from "react";
-import { Button } from "./style";
-import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
+import React from 'react';
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
+import { Button } from './style';
 
 const ChangeAccountBtn = ({ isSell, onClick }) => {
-  
-  let symbol = <AiOutlineArrowDown />;
-  if (!isSell) {
-    symbol = <AiOutlineArrowUp />;
-  }
+    let symbol = <AiOutlineArrowDown />;
+    if (!isSell) {
+        symbol = <AiOutlineArrowUp />;
+    }
 
-  return (
-    <Button data-testid="changeCurrency" onClick={onClick}>
-      {symbol}
-    </Button>
-  );
+    return (
+        <Button data-testid="changeCurrency" onClick={onClick}>
+            {symbol}
+        </Button>
+    );
 };
 
 export default ChangeAccountBtn;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Mask = styled.div`
-  display: ${(props) => (props.isDisplay ? "block" : "none")};
+  display: ${(props) => (props.isDisplay ? 'block' : 'none')};
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -52,4 +52,6 @@ const Button = styled.div`
   bottom: 30px;
 `;
 
-export { Container, Mask, Wrapper, Title, Rate, Button };
+export {
+    Container, Mask, Wrapper, Title, Rate, Button
+};
