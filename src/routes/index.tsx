@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Route, Switch } from 'react-router';
 import Home from '../components/home';
 import CurrencyTab from "../components/currencyTab/index";

@@ -19,18 +19,22 @@
     ],
     "moduleFileExtensions": [
       "js",
-      "jsx"
+      "jsx",
+      "ts",
+      "tsx"
     ],
     "moduleNameMapper": {
       "\\.(css|scss|sass)$": "identity-obj-proxy"
     },
     "transform": {
       "^.+\\.js$": "babel-jest",
+      ".(ts|tsx)": "ts-jest",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__test__/__mocks__/fileTransformer.js"
     },
     "collectCoverageFrom": [
       "src/components/*/*.tsx"
-    ]
+    ],
+    "testEnvironment": "jsdom"
   },
   "dependencies": {
     "@babel/cli": "^7.15.7",
@@ -82,17 +86,20 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
+    "@types/jest": "^27.0.2",
+    "@types/lodash": "^4.14.176",
     "@types/styled-components": "^5.1.15",
     "@types/webpack-env": "^1.16.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-styled-components": "^1.13.3",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
+    "jest": "^27.3.1",
     "jest-single-file-coverage": "^1.0.2",
     "jest-styled-components": "^6.3.4",
     "jest-transform-stub": "^2.0.0",
     "path": "^0.12.7",
     "source-map-loader": "^3.0.0",
+    "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
     "webpack": "^5.60.0"

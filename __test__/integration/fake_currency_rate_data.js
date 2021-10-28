@@ -1,4 +1,4 @@
-{
+export default {
   "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",
   "license": "https://openexchangerates.org/license",
   "timestamp": 1635364800,

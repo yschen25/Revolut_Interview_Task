@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MdShowChart } from 'react-icons/md';
 import {
@@ -18,6 +19,8 @@ import { findCurrencySymbol } from '../../utility';
 import Api from '../../api';
 
 const Index = ({
+    currentBalance,
+    targetBalance,
     currentCurrency,
     targetCurrency,
     rates,
@@ -29,21 +32,24 @@ const Index = ({
     dispatchUpdateRateState,
     dispatchUpdateSellOrBuyState
 }) => {
-    const currentBalance = 33396.42;
-    const targetBalance = 0.13;
     const [isDisplay, updateDisplay] = useState(false);
+
+    async function fetchData() {
+        const response = await Api.getRateByCurrency(currentCurrency);
+        const { rates } = response;
+        dispatchUpdateRateState(rates);
+    }
 
     // Get rate by curreny
     useEffect(() => {
-    // const interval = setInterval(() => {
-        async function fetchData() {
-            const response = await Api.getRateByCurrency(currentCurrency);
-            const { rates } = response;
-            dispatchUpdateRateState(rates);
-        }
-
         fetchData();
-    // }, 10000000000);
+        const interval = setInterval(() => {
+            fetchData();
+        }, 10 * 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     // Change account to sell or buy
@@ -52,11 +58,7 @@ const Index = ({
     };
 
     // Submit exchange request
-
-    console.log('isExceed', isExceed)
-
     const onSubmit = (e) => {
-
         if (!amount || isExceed) {
             return;
         }
@@ -153,6 +155,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+    currentBalance: state.currencyReducer.currentBalance,
+    targetBalance: state.currencyReducer.targetBalance,
     currentCurrency: state.currencyReducer.currentCurrency,
     targetCurrency: state.currencyReducer.targetCurrency,
     rates: state.currencyReducer.rates,

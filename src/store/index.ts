@@ -7,8 +7,25 @@ import createRootReducer from "./reducers";
 export const history = createBrowserHistory();
 export const sagaMiddleware = createSagaMiddleware();
 
+const checkIfExceed = (state) => {
+  if (state.isSell) {
+    return {
+      ...state,
+      isExceed: state.currentBalance < state.amount,
+    };
+  }
+
+  return {
+    ...state,
+    isExceed:
+      state.targetBalance < state.amount * state.rates[state.targetCurrency],
+  };
+};
+
 function currencyReducer(
   state = {
+    currentBalance: 33396.42,
+    targetBalance: 0.13,
     currentCurrency: "GBP",
     targetCurrency: "USD",
     rates: { USD: 1.3 },
@@ -21,26 +38,24 @@ function currencyReducer(
 ) {
   switch (action.type) {
     case "UPDATE_CURRENT_CURRENCY":
-      return { ...state, currentCurrency: action.payload };
+      return checkIfExceed({ ...state, currentCurrency: action.payload });
     case "UPDATE_TARGET_CURRENCY":
-      return { ...state, targetCurrency: action.payload };
+      return checkIfExceed({ ...state, targetCurrency: action.payload });
     case "UPDATE_RATE":
-      return { ...state, rates: action.payload };
+      return checkIfExceed({ ...state, rates: action.payload });
     case "UPDATE_AMOUNT":
       if (action.payload.fromCurrent) {
-        return { ...state, amount: action.payload.amount };
+        return checkIfExceed({ ...state, amount: action.payload.amount });
       } else {
-        return {
+        return checkIfExceed({
           ...state,
           amount: action.payload.amount / state.rates[state.targetCurrency],
-        };
+        });
       }
     case "UPDATE_SELL_OR_BUY":
-      return { ...state, isSell: !state.isSell };
+      return checkIfExceed({ ...state, isSell: !state.isSell });
     case "UPDATE_CURRENCY_LIST":
       return { ...state, currencyList: action.payload };
-    case "UPDATE_IS_EXCEED":
-      return { ...state, isExceed: action.payload };
     default:
       return state;
   }

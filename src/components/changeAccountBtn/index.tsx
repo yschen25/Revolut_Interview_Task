@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
 import { Button } from './style';
 
