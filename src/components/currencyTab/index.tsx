@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import * as _ from 'lodash';
 import { updateCurrencyList } from '../../action/updateCurrencyList';

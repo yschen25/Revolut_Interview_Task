@@ -59,7 +59,7 @@ const AmountInput = ({
 
     const isExceed = isSell && parseFloat(localAmount || '0') > parseFloat(balance);
 
-    // Change input background color
+    // Change the input background color
     let color = '#ededed';
     if (isFocus) {
         color = '#dedede';
@@ -68,6 +68,7 @@ const AmountInput = ({
         color = '#f7d1d7';
     }
 
+    // Formate the output 
     const sign = isSell ? '-' : '+';
     let localAmountStr = localAmount
         ? sign + +parseFloat(localAmount).toFixed(2)

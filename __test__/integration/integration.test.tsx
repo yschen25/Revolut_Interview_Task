@@ -13,7 +13,7 @@ const sleep = s => new Promise((resolve) => {
     setTimeout(() => resolve(null), s);
 })
 
-
+// Mock API
 jest.mock('../../src/api')
 const mockedGetRateByCurrency = api.getRateByCurrency as jest.Mock
 mockedGetRateByCurrency.mockResolvedValue(fakeCurrencyRateData);
@@ -34,7 +34,7 @@ describe("<Index />", () => {
     await sleep(100);
     expect(mockedGetRateByCurrency).toHaveBeenCalledTimes(1)
 
-    // Should change target input amount when changing current input
+    // Should change target account input amount when changing current account input
     await fireEvent.change(getByTestId("sell-input"), {
       target: { value: "10" },
     });
@@ -42,7 +42,7 @@ describe("<Index />", () => {
     expect((getByTestId("buy-input") as HTMLInputElement).value).toBe("+13.74");
     expect((getByTestId("sell-input") as HTMLInputElement).value).toBe("-10");
 
-    // Should change current input amount when changing target input
+    // Should change current account input amount when changing target account input
     await fireEvent.change(getByTestId("buy-input"), {
       target: { value: "0.13" },
     });
@@ -74,14 +74,14 @@ describe("<Index />", () => {
     await sleep(100);
     expect(mockedGetCurrencyList).toHaveBeenCalledTimes(1);
 
-    // Should back to previos page when clicking arrow
+    // Should back to the previos page when clicking arrow
     await fireEvent.click(getByTestId("back-to-index"));
 
     // Should allow user to change target currency
     await fireEvent.click(getByTestId("link-to-currency-tab-for-buy-input"));
     expect(getByTestId("currency-list")).toBeInTheDocument();
 
-    // Should chane the target currency when choosing the specfic currency
+    // Should change the target currency when choosing the specfic currency
     await sleep(100);
     expect(mockedGetCurrencyList).toHaveBeenCalledTimes(1);
 
@@ -97,7 +97,7 @@ describe("<Index />", () => {
     await fireEvent.click(getByTestId("currency-list-item"));
     expect((getByTestId("buy-input") as HTMLInputElement).value).toBe("-0.11");
 
-    // Should show the popup when click the submit button
+    // Should show the popup when clicking the submit button
     await fireEvent.click(getByTestId("submit-request"));
     expect(getByTestId("exchange-text").textContent).toBe("£0.11 to €0.09");
   });
