@@ -11,10 +11,10 @@ function currencyReducer(
   state = {
     currentCurrency: "GBP",
     targetCurrency: "USD",
-    // rate: 0
     rates: { USD: 1.3 },
     amount: 0,
     isSell: true,
+    isExceed: false,
     currencyList: {},
   },
   action
@@ -30,26 +30,30 @@ function currencyReducer(
       if (action.payload.fromCurrent) {
         return { ...state, amount: action.payload.amount };
       } else {
-        return { ...state, amount: action.payload.amount / state.rates[state.targetCurrency] };
+        return {
+          ...state,
+          amount: action.payload.amount / state.rates[state.targetCurrency],
+        };
       }
     case "UPDATE_SELL_OR_BUY":
       return { ...state, isSell: !state.isSell };
     case "UPDATE_CURRENCY_LIST":
       return { ...state, currencyList: action.payload };
+    case "UPDATE_IS_EXCEED":
+      return { ...state, isExceed: action.payload };
     default:
       return state;
   }
 }
 
 declare global {
-    interface Window {
-      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    }
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
 }
 
 export function ConfigureStore(initialState = {}) {
   let composeEnhancer;
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
     composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   } else {

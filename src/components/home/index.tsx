@@ -23,10 +23,11 @@ const Index = ({
     rates,
     amount,
     isSell,
+    isExceed,
     dispatchUpdateAmountFromCurrentState,
     dispatchUpdateAmountFromTargetState,
     dispatchUpdateRateState,
-    dispatchUpdateSellOrBuyState,
+    dispatchUpdateSellOrBuyState
 }) => {
     const currentBalance = 33396.42;
     const targetBalance = 0.13;
@@ -51,8 +52,12 @@ const Index = ({
     };
 
     // Submit exchange request
+
+    console.log('isExceed', isExceed)
+
     const onSubmit = (e) => {
-        if (!amount) {
+
+        if (!amount || isExceed) {
             return;
         }
 
@@ -82,7 +87,7 @@ const Index = ({
                 <Rate>
                     <MdShowChart />
                     {currentSymbol}
-                    1 =
+                    1 = {' '}
                     {targetSymbol}
                     {rate}
                 </Rate>
@@ -153,6 +158,7 @@ const mapStateToProps = (state) => ({
     rates: state.currencyReducer.rates,
     amount: state.currencyReducer.amount,
     isSell: state.currencyReducer.isSell,
+    isExceed: state.currencyReducer.isExceed
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

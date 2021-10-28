@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { updateisExceed } from '../../action/updateIsExceed';
 import { IoIosArrowDown } from 'react-icons/io';
 import {
     Wrapper,
@@ -20,6 +22,7 @@ const AmountInput = ({
     balance,
     amount,
     onAmountChange,
+    dispatchUpdateIsExceedState
 }) => {
     const [localAmount, updateMoney] = useState<string | null>(null);
     const [isFocus, setIsFocus] = useState(false);
@@ -57,6 +60,7 @@ const AmountInput = ({
     const balanceStr = parseFloat(balance).toLocaleString();
 
     const isExceed = isSell && parseFloat(localAmount || '0') > parseFloat(balance);
+    dispatchUpdateIsExceedState(isExceed);
 
     // Change input background color
     let color = '#ededed';
@@ -100,7 +104,7 @@ const AmountInput = ({
                     </Link>
                 </Currency>
                 <Balance>
-                    Balance:
+                    Balance: {' '}
                     {balanceStr}
                 </Balance>
                 <Money />
@@ -112,4 +116,10 @@ const AmountInput = ({
     );
 };
 
-export default AmountInput;
+const mapDispatchToProps = (dispatch) => ({
+    dispatchUpdateIsExceedState: (boolean) => {
+        dispatch(updateisExceed(boolean));
+    }
+});
+
+export default connect(null, mapDispatchToProps)(AmountInput);

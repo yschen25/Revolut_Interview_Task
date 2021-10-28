@@ -9,8 +9,6 @@
     "prod": "webpack --config webpack.prod.config.js",
     "analyze": "webpack --config webpack.prod.config.js --profile --json > stats.json",
     "report": "webpack-bundle-analyzer ./stats.json",
-    "lint": "eslint src/components/*/*.js",
-    "lint-fix": "eslint --fix src/components/*/*.js",
     "test": "jest --coverage",
     "test:single": "node ./node_modules/jest-single-file-coverage"
   },
@@ -31,7 +29,7 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__test__/__mocks__/fileTransformer.js"
     },
     "collectCoverageFrom": [
-      "src/components/*/*.js"
+      "src/components/*/*.tsx"
     ]
   },
   "dependencies": {
@@ -86,14 +84,8 @@
     "@testing-library/react": "^9.5.0",
     "@types/styled-components": "^5.1.15",
     "@types/webpack-env": "^1.16.3",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-styled-components": "^1.13.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^2.5.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-single-file-coverage": "^1.0.2",

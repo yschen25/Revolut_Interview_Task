@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { BsCheckCircle } from 'react-icons/bs';
 import {
-    Container, Line, Desc, ExchangeText, Button
+    Container, Line, Desc, ExchangeText, Button, iconStyle
 } from './style';
 import { findCurrencySymbol } from '../../utility';
 
@@ -28,12 +29,14 @@ const SubmitPopup = ({
     return (
         <Container isDisplay={isDisplay}>
             <Line />
+            <BsCheckCircle style={iconStyle}/>
             <Desc>You exchanged</Desc>
             <ExchangeText data-testid="exchange-text">
                 {currentSymbol}
                 {sellAmount}
                 {' '}
                 to
+                {' '}
                 {targetSymbol}
                 {buyAmount}
             </ExchangeText>

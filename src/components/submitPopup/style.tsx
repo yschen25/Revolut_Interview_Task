@@ -60,6 +60,15 @@ const Button = styled.div`
   transform: translate(-50%, 0);
 `;
 
+const iconStyle = {
+    fontSize: "5rem",
+    color: "#009ae3",
+    position: "absolute" as "absolute",
+    left: "50%",
+    transform: "translate(-50%, 0)",
+    top: "45px"
+}
+
 export {
-    Container, Line, Desc, ExchangeText, Button
+    Container, Line, Desc, ExchangeText, Button, iconStyle
 };
