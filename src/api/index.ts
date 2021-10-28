@@ -5,7 +5,10 @@ const jsonp = require("jsonp");
 // Develper plan
 const appId = "cd9baf78c4234b2f87833bdc52987865";
 
-const getRateByCurrency = (currency) => {
+type GetRateByCurrentcyResponse = {
+  rates : { [currencyCode : string] : string }
+}
+const getRateByCurrency = (currency) : Promise<GetRateByCurrentcyResponse> => {
   return new Promise((resolve, reject) => {
     jsonp(
       `https://openexchangerates.org/api/latest.json?app_id=${appId}&base=${currency}`,

@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -56,14 +57,14 @@ const linkStyle = {
     height: '45px',
 };
 
-const iconStyle = {
+const iconStyle : CSSProperties = {
     fontSize: '1.6em',
     position: 'absolute',
     color: '#000',
     top: '50%',
     left: '15px',
     transform: 'translate(0, -50%)',
-    zIndex: '2'
+    zIndex: 2,
 };
 
 export {

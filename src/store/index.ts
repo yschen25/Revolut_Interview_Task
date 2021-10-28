@@ -41,7 +41,13 @@ function currencyReducer(
   }
 }
 
-export function ConfigureStore(initialState) {
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
+export function ConfigureStore(initialState = {}) {
   let composeEnhancer;
   console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
@@ -56,8 +62,6 @@ export function ConfigureStore(initialState) {
     composeEnhancer(applyMiddleware(routerMiddleware(history), sagaMiddleware))
   );
 
-  store.asyncReducers = {};
-
   return store;
 }
 
@@ -66,6 +70,6 @@ export const store = ConfigureStore();
 if (module.hot) {
   module.hot.accept("./reducers", () => {
     const reducers = require("./reducers").default;
-    store.replaceReducer(reducers(store.asyncReducers));
+    store.replaceReducer(reducers({}));
   });
 }

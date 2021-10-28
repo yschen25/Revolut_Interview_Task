@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -64,7 +65,8 @@ const Money = styled.p`
   color: grey;
 `;
 
-const Notice = styled.span`
+type NoticeProps = { isExceed : boolean }
+const Notice = styled.span<NoticeProps>`
   display: ${(props) => (props.isExceed ? 'block' : 'none')};
   position: absolute;
   right: 10px;
@@ -73,7 +75,7 @@ const Notice = styled.span`
   color: #db3946;
 `;
 
-const iconStyle = {
+const iconStyle : CSSProperties = {
     fontSize: '1.2rem',
     position: 'absolute',
     top: '0',

@@ -21,7 +21,7 @@ const AmountInput = ({
     amount,
     onAmountChange,
 }) => {
-    const [localAmount, updateMoney] = useState(null);
+    const [localAmount, updateMoney] = useState<string | null>(null);
     const [isFocus, setIsFocus] = useState(false);
 
     const onChange = (e) => {
@@ -45,13 +45,18 @@ const AmountInput = ({
 
     useEffect(() => {
         if (!isFocus) {
-            updateMoney(+amount.toFixed(2));
+            const formated = '' + +amount.toFixed(2);
+            if (formated === '0') {
+                updateMoney(null)
+            } else {
+                updateMoney(formated);
+            }
         }
     }, [amount]);
 
     const balanceStr = parseFloat(balance).toLocaleString();
 
-    const isExceed = isSell && parseFloat(localAmount) > parseFloat(balance);
+    const isExceed = isSell && parseFloat(localAmount || '0') > parseFloat(balance);
 
     // Change input background color
     let color = '#ededed';
@@ -78,7 +83,6 @@ const AmountInput = ({
                     type="text"
                     pattern="\d*(\.\d{0,2})?"
                     style={{ background: color }}
-                    isFocus={isFocus}
                     onChange={onChange}
                     onFocus={onFocus}
                     onBlur={onBlur}

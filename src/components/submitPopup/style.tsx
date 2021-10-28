@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+type ContainerProps = { isDisplay: boolean }
+const Container = styled.div<ContainerProps>`
   display: ${(props) => (props.isDisplay ? 'flex' : 'none')};
   flex-wrap: wrap;
   position: absolute;

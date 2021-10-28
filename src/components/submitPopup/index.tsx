@@ -13,15 +13,13 @@ const SubmitPopup = ({
     amount,
     rate,
 }) => {
-    let sellAmount = null;
-    let buyAmount = null;
+    
+    let buyAmount = amount.toFixed(2);
+    let sellAmount = (amount * rate).toFixed(2);
 
     if (isSell) {
         sellAmount = amount.toFixed(2);
         buyAmount = (amount * rate).toFixed(2);
-    } else {
-        buyAmount = amount.toFixed(2);
-        sellAmount = (amount * rate).toFixed(2);
     }
 
     const currentSymbol = findCurrencySymbol(currentCurrency);

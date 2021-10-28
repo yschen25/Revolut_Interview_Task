@@ -4,7 +4,7 @@ const HappyPack = require("happypack");
 const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 
 module.exports = {
-  entry: ["./src/main.js"],
+  entry: ["./src/main.tsx"],
   output: {
     path: `${__dirname}/dist`,
     filename: "assets/js/bundle.[hash].js",

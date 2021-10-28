@@ -11,7 +11,8 @@ const Container = styled.div`
   background: #fff;
 `;
 
-const Mask = styled.div`
+type MaskProps = { isDisplay : boolean }
+const Mask = styled.div<MaskProps>`
   display: ${(props) => (props.isDisplay ? 'block' : 'none')};
   height: 100vh;
   width: 100vw;

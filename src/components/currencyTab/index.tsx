@@ -20,6 +20,12 @@ import {
 } from './style';
 import Api from '../../api';
 
+type CurrencyTabState = {
+    originalList: {[key: string]: string},
+    searchList: {[key: string]: string},
+    keyword: string | null,
+}
+
 const CurrencyTab = ({
     history: {
         location: {
@@ -31,7 +37,7 @@ const CurrencyTab = ({
     dispatchUpdateTargetCurrencyState,
     dispatchUpdateCurrencyListState,
 }) => {
-    const [list, updateList] = useState({
+    const [list, updateList] = useState<CurrencyTabState>({
         originalList: {},
         searchList: {},
         keyword: null,
